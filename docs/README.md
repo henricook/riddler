@@ -10,37 +10,39 @@ It stores an in-memory list of the 100,000 most common passwords as issued by th
 
 A tiny alpine distribution running the go binary
 
-<code>
-	- git clone git@github.com:henricook/riddler.git
-	- Create the files 'server.crt' and 'server.key' in the base directory for HTTPS (compulsory).
-	- docker build .
-	- Run/deploy as you wish
-</code>
+<pre>
+- git clone git@github.com:henricook/riddler.git
+- Create the files 'server.crt' and 'server.key' in the base directory for HTTPS (compulsory).
+- docker build .
+- Run/deploy as you wish
+</pre>
 
 ### Go Binary
 
-<code>
-	- Download from the <a href="https://github.com/henricook/riddler/releases">releases page</a>. 
-	- Unpack the tar ball and select a suitable binary for your system.
-	- Create the files 'server.crt' and 'server.key' in the base directory for HTTPS (compulsory).
-	- Run/deploy as you wish
-</code>
+<pre>
+- Download from the <a href="https://github.com/henricook/riddler/releases">releases page</a>. 
+- Unpack the tar ball and select a suitable binary for your system.
+- Create the files 'server.crt' and 'server.key' in the base directory for HTTPS (compulsory).
+- Run/deploy as you wish
+</pre>
 
 ## Simple API
 
-<code>
-	POST /check-100k
-</code>
+<pre>
+POST /check-100k
+</pre>
 
 Example Request Payload:
-<code>
-	{ "value": "string-to-check" }
-</code>
+
+<pre>
+{ "value": "string-to-check" }
+</pre>
 
 Example Response Payload:
-<code>
-	{ "common": true }
-</code>
+
+<pre>
+{ "common": true }
+</pre>
 
 
 # Contributors
