@@ -1,3 +1,5 @@
+![Go](https://github.com/henricook/riddler/workflows/Go/badge.svg)
+
 # Introduction
 
 Riddler is a lightweight, performant microservice written in Go.
