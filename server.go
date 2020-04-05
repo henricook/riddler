@@ -9,6 +9,31 @@ import (
     "encoding/json"
 )
 
+// Library functions
+
+// Error handling for file IO
+func check(e error) {
+    if e != nil {
+        panic(e)
+    }
+}
+
+// Endpoints
+type PingResponse struct {
+    Response string  `json:"response"`
+}
+
+func Ping(w http.ResponseWriter, req *http.Request) {
+    result := PingResponse { Response: "PONG" }
+
+    w.Header().Set("Content-Type", "application/json")
+
+    encoder := json.NewEncoder(w)
+
+    encodeErr := encoder.Encode(&result)
+    check(encodeErr)
+}
+
 // Pass around the 100K set
 type HundredK struct {
     set *hashset.Set
@@ -40,17 +65,8 @@ func (hundredK *HundredK) Check100kServer(w http.ResponseWriter, req *http.Reque
     check(encodeErr)
 }
 
-// Error handling for file IO
-func check(e error) {
-    if e != nil {
-        panic(e)
-    }
-}
-
-// https://github.com/denji/golang-tls
+// Server
 func main() {
-
-
     log.Print("Loading resources...")
 
     hundredKFile, err := os.Open("ncsc-common-100k.txt")
@@ -73,6 +89,7 @@ func main() {
     // TODO: Check file existence and output nice error message
     log.Print("Starting Riddler Server...")
 
+    http.HandleFunc("/ping", Ping)
     http.HandleFunc("/check-100k", hundredK.Check100kServer)
     listenErr := http.ListenAndServeTLS(":8443", "server.crt", "server.key", nil)
     if listenErr != nil {
