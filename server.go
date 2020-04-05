@@ -15,11 +15,11 @@ type HundredK struct {
 }
 
 type Check100kRequest struct {
-    Value string
+    Value string  `json:"value"`
 }
 
 type Check100kResponse struct {
-    Common bool
+    Common bool  `json:"common"`
 }
 
 // Process request to check 100k list
