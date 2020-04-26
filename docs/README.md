@@ -1,4 +1,5 @@
 ![Go](https://github.com/henricook/riddler/workflows/Go/badge.svg)
+![Docker Image CI](https://github.com/henricook/riddler/workflows/Docker%20Image%20CI/badge.svg)
 
 # Introduction
 
