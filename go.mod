@@ -1,4 +1,4 @@
-module henricook.com/riddler
+module github.com/henricook/riddler
 
 go 1.12
 

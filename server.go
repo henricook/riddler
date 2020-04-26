@@ -1,12 +1,12 @@
-package main
+package riddler
 
 import (
     "bufio"
+    "encoding/json"
+    "github.com/emirpasic/gods/sets/hashset"
     "log"
     "net/http"
     "os"
-    "github.com/emirpasic/gods/sets/hashset"
-    "encoding/json"
 )
 
 // Library functions
@@ -24,7 +24,7 @@ type PingResponse struct {
 }
 
 func Ping(w http.ResponseWriter, req *http.Request) {
-    result := PingResponse { Response: "PONG" }
+    result := PingResponse{ Response: "PONG" }
 
     w.Header().Set("Content-Type", "application/json")
 
@@ -55,7 +55,7 @@ func (hundredK *HundredK) Check100kServer(w http.ResponseWriter, req *http.Reque
     decodeErr := decoder.Decode(&body)
     check(decodeErr)
 
-    result := Check100kResponse { Common: hundredK.set.Contains(body.Value) }
+    result := Check100kResponse{ Common: hundredK.set.Contains(body.Value) }
 
     w.Header().Set("Content-Type", "application/json")
 
