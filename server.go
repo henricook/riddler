@@ -87,7 +87,7 @@ func main() {
     log.Print("Resources Loaded.")
 
     // TODO: Check file existence and output nice error message
-    log.Print("Starting Riddler Server...")
+    log.Print("Riddler Server is listening...")
 
     http.HandleFunc("/ping", Ping)
     http.HandleFunc("/check-100k", hundredK.Check100kServer)

@@ -1,17 +1,30 @@
-# Start from a Debian image with the latest version of Go installed
-# and a workspace (GOPATH) configured at /go.
-FROM golang-alpine
+FROM golang:alpine AS builder
 
-# Copy the local package files to the container's workspace.
-ADD . /go/src/github.com/golang/example/outyet
+# Install git.
+# Git is required for fetching the dependencies.
+RUN apk update && apk add --no-cache git
 
-# Build the outyet command inside the container.
-# (You may fetch or manage dependencies here,
-# either manually or with a tool like "godep".)
-RUN go install github.com/golang/example/outyet
+WORKDIR $GOPATH/src/github.com/henricook/riddler/
+COPY . .
 
-# Run the outyet command by default when the container starts.
-ENTRYPOINT /go/bin/outyet
+# Fetch dependencies.
+# Using go get.
+RUN go get -d -v
 
-# Document that the service listens on port 8080.
-EXPOSE 8080
+RUN mv server.crt /go/bin/server.crt \
+    && mv server.key /go/bin/server.key \
+    && mv *.txt /go/bin/ \
+    && go build -o /go/bin/riddler
+
+##############################
+# STEP 2 build a small image #
+##############################
+FROM alpine
+
+# Copy our static executable and certs
+COPY --from=builder /go/bin/* /go/bin/
+
+WORKDIR /go/bin
+
+# Run the riddler binary.
+ENTRYPOINT ["./riddler"]
