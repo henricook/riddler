@@ -1,4 +1,4 @@
-package riddler
+package main
 
 import (
     "bufio"
