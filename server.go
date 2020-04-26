@@ -91,7 +91,7 @@ func main() {
 
     http.HandleFunc("/ping", Ping)
     http.HandleFunc("/check-100k", hundredK.Check100kServer)
-    listenErr := http.ListenAndServeTLS(":8443", "server.crt", "server.key", nil)
+    listenErr := http.ListenAndServeTLS(":8080", "server.crt", "server.key", nil)
     if listenErr != nil {
         log.Fatal("ListenAndServe: ", err)
     }
