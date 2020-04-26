@@ -7,12 +7,19 @@ on:
     branches: [ master ]
 
 jobs:
-
   build:
-
     runs-on: ubuntu-latest
-
     steps:
-    - uses: actions/checkout@v2
-    - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag riddler:$(date +%s)
+      - uses: actions/checkout@v2
+      - name: Create fake certificates
+        run: |
+          openssl req -newkey rsa:4096 \
+            -x509 \
+            -sha256 \
+            -days 3650 \
+            -nodes \
+            -out server.crt \
+            -keyout server.key \
+            -subj "/C=GB/ST=London/L=London/O=Security/OU=IT Department/CN=www.example.com"
+      - name: Build the Docker image
+        run: docker build . --file Dockerfile --tag riddler:$(date +%s)
